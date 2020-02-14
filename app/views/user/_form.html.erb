@@ -1,0 +1,19 @@
+<%= form_with url: '/user', method: :post do |form| %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+
+        <%= form.label :name %>
+        <%= form.text_field :name, class:"form-control" %>
+  
+        <%= form.label :email %>
+        <%= form.email_field :email_id , class:"form-control" %>
+  
+        <%= form.label :password %>
+        <%= form.password_field :password , class:"form-control" %>
+  
+        <%= form.label :password_confirmation, "Confirmation" %>
+        <%= form.password_field :password_confirmation , class:"form-control"%>
+  
+        <%= form.submit yield(:button_text), class: "btn btn-primary" %>
+<% end %>

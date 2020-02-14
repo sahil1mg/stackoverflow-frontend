@@ -1,0 +1,35 @@
+<% answers.each do |answer|%>
+  <div class="row">
+    <div class="col-md-1">
+      <%=render 'vote/vote_form', votes: answer["votes"], votable_type: 'Answer', votable_id: answer["id"], question_id: question_id %>
+    </div>
+    <div class="col-md-11">
+      <p class ="body"><%=answer["text"] %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%if (logged_in? && answer["user_id"]==current_user["id"]) %>
+        <%=link_to 'edit', edit_answer_path(answer['id']) %>
+      <%end %>
+    </div>
+    <div class="col-md-6"><span class="tags" style="float:right"><p class="small">Answered by<br><%= link_to answer["user_name"], user_url(answer["user_id"])  %></p></span></div>
+  </div>
+  <div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <hr>
+      <%=render 'comment_printer', comments: answer["comments"], question_id: question_id%>
+      <%if logged_in? %>
+      <a id="answer_comment" onclick="toggle('<%='commentBox_'+answer['id'].to_s %>')">add comment</a>
+      <%else %>
+        <a id="answer_comment" onclick='login_alert()'>add comment</a>
+      <%end %>
+    </div>
+  </div>
+  <%if logged_in? %>
+    <div id='<%='commentBox_'+answer['id'].to_s %>' style="display:none">
+      <%=render 'comment_form', commentable_id: answer["id"], commentable_type: 'Answer', question_id: question_id %>
+    </div>
+  <%end %>
+  <hr>
+<% end %>

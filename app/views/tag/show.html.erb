@@ -1,0 +1,18 @@
+<% provide(:title, @tag["label"]) %>
+<%admin_login_flag = logged_in? && is_admin?%>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2><%=@tag["label"] %>
+      <%if admin_login_flag %>
+        <%= link_to edit_tag_path(@tag["id"]) do %><span class="glyphicon glyphicon-pencil" style="float:right"></span><% end %>
+      <%end %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="tag-body"><%=@tag["body"] %></p>
+      <%=render 'shared/question_printer', questions: @questions, count_of_answers: @count_of_answers %>
+    </div>
+  </div>
+</div>

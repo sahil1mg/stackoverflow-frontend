@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with url: '/question', method: :post do |form| %>
+
+        <div class="field">
+          <%=form.label :title %><br>
+          <p class="small">Be specific and imagine you're asking question to another person</p><br>
+          <%= form.text_field :title, placeholder: "e.g. Is there a R function for finding the index of an element in a vector",
+                              class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%=form.label :body %><br>
+          <p class="small">Include all the information needed to answer the question</p><br>
+          <%= form.text_area :body, class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%=form.label :tags %><br>
+          <%= select_tag "tags", options_for_select(tags.collect{ |u| [u["label"], u["id"]] }), multiple: true %>
+        </div>
+        <div class="action">
+          <%= form.submit  class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<% provide(:title, "Question") %>
+<div class = "container-fluid">
+  <!-- Question Title section -->
+  <div class = "row">
+    <div class= "col-md-11">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <h2 class="question-header"><%=@question["title"] %></h2>
+    </div>
+    <div class="col-md-1">
+      <%=button_to "Ask Question", new_question_path, class: 'btn btn-primary', id: "ask-btn", method: :get%>
+    </div>
+  </div>
+  <div class = "row">
+    <div class= "col-md-12">
+      <p class="small">Posted <%= time_ago_in_words(@question["updated_at"]) %> ago.</p>
+    </div>
+  </div>
+  <hr>
+
+  <!-- Question Body section -->
+  <div class="row">
+    <div class="col-md-1">
+      <%=render 'vote/vote_form', votes: @question["votes"], votable_type: 'Question', votable_id: @question["id"], question_id: @question["id"]%>
+    </div>
+    <div class="col-md-11">
+        <p class = "body"><%=@question["body"] %></p>
+      <%@question["tags"].each do |tag| %> <span class="tags small"><%=tag["label"] %></span> &nbsp;<% end%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%=link_to 'edit', edit_question_path %>
+    </div>
+    <div class="col-md-6"><span class="tags" style="float:right"><p class="small">Asked by<br><%= link_to @question["user_name"], user_url(@question["user_id"]) %></p></span></div>
+  </div>
+  <div class="row">
+    <div class="col-md-11 col-md-offset-1">
+      <hr>
+      <%=render 'comment_printer', comments: @question["comments"], question_id: @question["id"]  %>
+      <%if logged_in? %>
+        <a id="question_comment" onclick='toggle("commentBox")'>add comment</a>
+      <%else %>
+        <a id="question_comment" onclick='login_alert()'>add comment</a>
+      <%end %>
+    </div>
+  </div>
+  <div id="commentBox" style="display:none">
+    <%=render 'comment_form', commentable_id: @question["id"], commentable_type: 'Question', question_id: @question["id"] %>
+  </div>
+  <hr>
+  <%=pluralize(@question["no_of_answers"],"Answer") %>
+  <hr>
+
+
+  <%=render 'answer_printer', answers: @answers, question_id: @question["id"] %>
+  <%if logged_in? %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= form_with url: '/answer', method: :post do |form| %>
+          <div class="field">
+            <%=form.label 'Your Answer' %><br>
+            <%= form.hidden_field :question_id, value: @question["id"]%>
+            <%= form.text_area :text, class: 'form-control'%>
+          </div>
+          <div class="action">
+            <%= form.submit  class: "btn btn-primary", value: 'Post Answer' %>
+          </div>
+        <%end %>
+      </div>
+    </div>
+    <%end %>
+
+</div>

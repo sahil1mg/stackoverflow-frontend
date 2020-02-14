@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <tbody>
+  <% questions.each do |question| %>
+    <tr>
+      <td ><%=question["votes"]||=0 %><br><span class="small">Votes</span></td>
+      <td>
+        <%=count_of_answers[question["id"].to_s]||=0 %>
+        <br><span class="small">Answers</span></td>
+      <td><%=link_to question["title"], question_url(question["id"]) %>
+        <br>
+        <span class="small"><%question["tags"].each do |tag| %>
+            <span class="tags"><%=link_to tag["label"], tag_path(tag["id"]) %></span>
+          <% end%>
+        </span>
+      </td>
+      <td><span class="small">Posted <%= time_ago_in_words(question["updated_at"]) %> ago. <br>-<%= link_to question["user_name"], user_url(question["user_id"]) %></span></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

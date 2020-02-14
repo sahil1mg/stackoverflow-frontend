@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with url: '/tag', method: :post do |form| %>
+
+        <div class="field">
+          <%=form.label :label %><br>
+          <%= form.text_field :label, placeholder: "e.g. python, java-hibernate",
+                              class: 'form-control'%>
+        </div>
+        <div class="field">
+          <%=form.label :body %><br>
+          <p class="small">Include all the information to describe the tag</p><br>
+          <%= form.text_area :body, class: 'form-control'%>
+        </div>
+        <div class="field">
+        </div>
+        <div class="action">
+          <%= form.submit  class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

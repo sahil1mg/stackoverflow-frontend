@@ -1,0 +1,23 @@
+<nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+          <li class="nav-item"><h3 style="color:white;"> &nbsp <%= link_to "STACKOVERFLOW",   root_path %></h3></li>
+          <li class="nav-item">
+            <%= form_with url: '/search', method: :get, class:"form-inline padded", local: true do |form| %>
+              <%=form.text_field :search, class:"form-control", placeholder:"Search", size:"100"%>
+              <%=form.submit "Search", class:"btn btn-outline-success" %>
+            <%end %>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <%if logged_in? %>
+            <li class="nav-item"><%= link_to current_user["name"],   user_path(current_user["user_id"]) %></li>
+            <li class="nav-item"><%= link_to "Log out", logout_path, method: :delete, class: 'btn btn-danger', style: 'color:white' %></li>
+          <%else %>
+            <li class="nav-item"><%= link_to "Sign Up",   new_user_path, class: 'btn btn-info', style: 'color:white' %></li>
+            <li class="nav-item"><%= link_to "Log In",   login_path, class: 'btn btn-success', style: 'color:white' %></li>
+          <%end %>
+        </ul>
+      </div>
+    </nav>

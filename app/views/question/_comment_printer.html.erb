@@ -1,0 +1,25 @@
+<%comments.each do |comment| %>
+  <p class="comment">
+    <%=comment["text"] %>-<%=link_to comment["user_name"], user_path(comment["user_id"]) %>&nbsp;
+    <span class="comment-date"><%=time_ago_in_words(comment["created_at"]) %> ago.</span>
+    <% if logged_in? && comment["user_id"]==current_user["id"] %>
+      <span class="glyphicon glyphicon-pencil" onclick="toggle('<%='edit_comment_box_'+comment['id'].to_s %>')"></span></p>
+    <%end %>
+    <div class="row" id='<%='edit_comment_box_'+comment['id'].to_s %>' style="display: none">
+      <div class="col-md-12">
+        <%= form_with url: '/comment/'+comment["id"].to_s, method: :put do |form| %>
+          <%= form.hidden_field :id, value: comment["id"]%>
+          <%= form.hidden_field :user_id, value: comment["user_id"]%>
+          <%= form.hidden_field :question_id, value: question_id %>
+          <div class="field">
+            <%=form.label :Comment %><br>
+            <%= form.text_area :text, class: 'form-control', value: comment["text"] %>
+          </div>
+          <div class="action">
+            <%= form.submit  class: "btn btn-primary" %>
+          </div>
+        <% end %>
+    </div>
+    </div>
+  <hr>
+<% end %>

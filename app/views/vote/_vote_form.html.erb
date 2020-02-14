@@ -1,0 +1,31 @@
+<%upvote_class_name="glyphicon glyphicon-thumbs-up"%>
+<%downvote_class_name = "glyphicon glyphicon-thumbs-down" %>
+<%if logged_in? %>
+  <%if(@vote_ids['upvote_'+votable_type+'_'+votable_id.to_s]) %>
+    <%upvote_class_name = "glyphicon glyphicon-thumbs-up text-success" %>
+  <%elsif(@vote_ids['downvote_'+votable_type+'_'+votable_id.to_s]==false) %>
+    <%downvote_class_name = "glyphicon glyphicon-thumbs-down text-danger" %>
+  <%end %>
+<%end %>
+<div id="vote_form">
+<%= form_with url: '/vote/', method: :post do |form| %>
+  <%= hidden_field_tag :votable_type, votable_type %>
+  <%= hidden_field_tag :votable_id, votable_id %>
+  <%= hidden_field_tag :question_id, question_id %>
+  <%= hidden_field_tag :has_liked, true %>
+  <%= button_tag(type: 'submit', class: "vote-btn") do %>
+    <span id='<%='upvote_'+votable_type+'_'+votable_id.to_s %>' class="<%=upvote_class_name %>"></span>
+  <% end %>
+<% end %>
+  <strong id='<%='vote_count_'+votable_type+'_'+votable_id.to_s %>'><%=votes %></strong>
+<br>
+<%= form_with url: '/vote/', method: :post do |form| %>
+  <%= hidden_field_tag :votable_type, votable_type %>
+  <%= hidden_field_tag :votable_id, votable_id %>
+  <%= hidden_field_tag :has_liked, false %>
+  <%= hidden_field_tag :question_id, question_id %>
+  <%= button_tag(type: 'submit', class: "vote-btn", id: 'downvote_btn') do %>
+    <span id='<%='downvote_'+votable_type+'_'+votable_id.to_s %>' class="<%=downvote_class_name %>"></span>
+  <% end %>
+<% end %>
+</div>

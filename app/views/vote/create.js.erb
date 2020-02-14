@@ -1,0 +1,17 @@
+<%if @vote["has_liked"]=='true' %>
+if($('<%='#upvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').hasClass("text-success")) {
+    $('<%='#upvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').removeClass("text-success");
+}
+else {
+    $('<%='#upvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').addClass("text-success");
+}
+$('<%='#downvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').removeClass("text-danger");
+<%else %>
+if($('<%='#downvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').hasClass("text-danger")){
+    $('<%='#downvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').removeClass("text-danger");
+}else{
+    $('<%='#downvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').addClass("text-danger");
+}
+  $('<%='#upvote_'+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').removeClass("text-success");
+<%end %>
+$('<%="#vote_count_"+@vote["votable_type"]+'_'+@vote["votable_id"].to_s %>').html('<%= @vote_count %>');

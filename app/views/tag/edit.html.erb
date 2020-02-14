@@ -1,0 +1,33 @@
+<% provide(:title, "Edit tag") %>
+<h1>Editing tag</h1>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with url: '/tag/'+@tag["id"].to_s, method: :put do |form| %>
+        <%= form.hidden_field :id, value: :@tag["id"]%>
+        <div class="field">
+          <%=form.label :label %><br>
+          <%= form.text_field :label, placeholder: "e.g. python, java-hibernate",
+                              class: 'form-control', value: @tag["label"] %>
+        </div>
+        <div class="field">
+          <%=form.label :body %><br>
+          <p class="small">Include all the information to describe the tag</p><br>
+          <%= form.text_area :body, class: 'form-control', value: @tag["body"]%>
+        </div>
+        <div class="field">
+        </div>
+        <div class="action">
+          <%= form.submit  class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= link_to 'Show', @tag %> |
+<%= link_to 'Back', tag_path %>

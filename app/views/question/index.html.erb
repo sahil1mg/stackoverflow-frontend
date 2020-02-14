@@ -1,0 +1,15 @@
+<div class = "container-fluid">
+  <div class = "row">
+    <div class= "col-md-11">
+      <h2> Top Questions</h2>
+    </div>
+    <div class="col-md-1">
+      <%=button_to "Ask Question", new_question_path, class: 'btn btn-primary', id: "custom-btn", method: :get%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%=render 'shared/question_printer', questions: @questions, count_of_answers: @count_of_answers %>
+    </div>
+  </div>
+</div>

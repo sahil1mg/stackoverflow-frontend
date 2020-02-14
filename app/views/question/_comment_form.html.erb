@@ -1,0 +1,12 @@
+<%= form_with url: '/comment', method: :post do |form| %>
+  <div class="field">
+    <%=form.label 'Your Comment' %><br>
+    <%= form.hidden_field :commentable_id, value: commentable_id%>
+    <%= form.hidden_field :commentable_type, value: commentable_type %>
+    <%= form.hidden_field :question_id, value: question_id%>
+    <%= form.text_area :text, class: 'form-control'%>
+  </div>
+  <div class="action">
+    <%= form.submit  class: "btn btn-primary", value: 'Post Comment' %>
+  </div>
+<%end %>

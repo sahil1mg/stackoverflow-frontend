@@ -1,0 +1,28 @@
+<% provide(:title, "Edit Answer") %>
+<h1>Editing answer</h1>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <%=@answer["question"]["title"] %>
+    <div class="col-md-12">
+      <%= form_with url: '/answer/'+@answer["id"].to_s, method: :put do |form| %>
+        <%= form.hidden_field :id, value: @answer["id"]%>
+        <%= form.hidden_field :user_id, value: @answer["user_id"]%>
+        <%= form.hidden_field :question_id, value: @answer["question"]["id"]%>
+        <div class="field">
+          <%=form.label :text %><br>
+          <%= form.text_area :text, class: 'form-control', value: @answer["text"]%>
+        </div>
+        <div class="action">
+          <%= form.submit  class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= link_to 'Show', @answer %> |
+<%= link_to 'Back', answer_path %>

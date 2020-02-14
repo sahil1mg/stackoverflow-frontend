@@ -1,0 +1,28 @@
+<% provide(:title, "All Tags") %>
+<%admin_login_flag = logged_in? && is_admin?%>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-11">
+      <h2>Tags</h2>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+    </div>
+    <div class="col-md-1">
+      <%=button_to "Create Tag", new_tag_path, class: 'btn btn-primary', id: "custom-btn", method: :get%>
+    </div>
+  </div>
+  <hr><hr>
+  <% @tags.each do |tag|%>
+    <div class="row">
+    <div class="col-md-4">
+      <span class="tags"> <%=link_to tag["label"], tag_path(tag["id"]) %> X <%=@question_count[tag["id"].to_s]||=0 %></span>
+      <%if admin_login_flag %>
+        <%= link_to edit_tag_path(tag["id"]) do %><span class="glyphicon glyphicon-pencil"></span><% end %>
+        <%= link_to tag_path(tag["id"]), method: :delete do %><span class="glyphicon glyphicon-trash"></span><% end %>
+      <%end %>
+    </div>
+      <div class="col-md-8"> <p class="comment"><%=tag["body"] %></p></div>
+    </div><hr><hr>
+  <% end %>
+</div>

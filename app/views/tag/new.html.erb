@@ -1,0 +1,7 @@
+<% provide(:title, "Create Tag") %>
+<h1>Create Tag</h1>
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+<%= render 'form' %>
+<%= link_to 'Back', root_path %>

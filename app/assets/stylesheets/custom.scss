@@ -1,0 +1,142 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+  padding-top: 70px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.4em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color:black;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+.sidenav {
+  width: 130px;
+  position: fixed;
+  z-index: 1;
+  top: 50px;
+  left: 10px;
+  background: #eee;
+  overflow-x: hidden;
+  padding: 20px 0;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #2196F3;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #064579;
+}
+
+.main {
+  margin-left: 140px; /* Same width as the sidebar + left position in px */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+.small {
+  font-size: 14px;
+  float:left;
+}
+
+.tags {
+  background: lightblue;
+  color: darkblue;
+  display: inline-block;
+  padding: .20em .60em .30em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.question-header{
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-weight: normal;
+  color: black;
+}
+
+.body{
+  font-size: 20px;
+}
+
+#custom-btn{
+  float:right;
+  margin-top: 20px;
+}
+
+.hidden {
+  display:none;
+}
+
+.comment{
+  font-size: 15px;
+}
+
+.vote-btn{
+  background-color: #ffffff00; /* Green */
+  border: none;
+}
+
+.tag-body{
+  font-size: 17px;
+  text-align: center;
+}
+
+.navbar-nav > li{
+  padding-right:30px;
+}
+
+.padded{
+  padding-top:2%;
+}

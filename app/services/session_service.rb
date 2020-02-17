@@ -12,4 +12,12 @@ class SessionService
     return res
   end
 
+  def self.logout(id)
+    res=nil
+    uri = URI('http://localhost:3000/logout/'+id.to_s);
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Delete.new(uri.path)
+    res = http.request(req)
+    return res
   end
+end

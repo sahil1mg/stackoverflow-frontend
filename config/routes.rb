@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :user
   resources :tag
   resources :comment, only: [:create, :update]
-  resources :answer, only: [:create, :edit, :update]
+  resources :answer, only: [:create, :edit, :update, :destroy]
   resources :vote, only: [:create]
   get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'
@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'static_pages/page_not_found'
   get '/search', to:'static_pages#search'
+  post 'question/restore/:id', to:'question#restore'
 end

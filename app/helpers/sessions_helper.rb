@@ -5,16 +5,21 @@ module SessionsHelper
     session[:name]=user["name"]
     session[:email]=user["email_id"]
     session[:is_admin]=user["is_admin"]
+    session[:remember]=user["remember"]
   end
 
   # Returns the user corresponding to the remember token cookie.
   def current_user
+    @current_user=nil
     if (session[:user_id])
-      if(@current_user==nil)
-        @current_user ||= session
+      @current_user = session
+    elsif (cookies.signed[:user_id])
+      @current_user = UserService.authenticate_cookie(cookies.signed[:user_id], cookies.signed[:remember_token])
+      if(@current_user)
+        log_in(@current_user)
       end
     end
-    return session
+    return @current_user
   end
 
   def current_user?(user)
@@ -33,6 +38,18 @@ module SessionsHelper
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  #storing cookie
+  def remember(user_id, remember)
+    cookies.permanent.signed[:user_id] = user_id
+    cookies.permanent[:remember_token] = remember
+  end
+
+  # Forgets a persistent session.
+  def forget()
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
   end
 
   #Storing last url if user wanted to open an url but couldn't as he/she was not logged

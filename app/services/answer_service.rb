@@ -49,4 +49,24 @@ class AnswerService
     end
     return res
   end
+
+  def self.destroy(id)
+    res=nil
+    uri = URI('http://localhost:3000/answer/'+id.to_s);
+    http = Net::HTTP.new(uri.host, uri.port)
+    req = Net::HTTP::Delete.new(uri.path)
+    res = http.request(req)
+    return res
+  end
+
+  def self.restore(answer_id)
+    uri = URI('http://localhost:3000/restore_answer');
+    req = Net::HTTP::Post.new(uri)
+    req.body = {:id=>answer_id}.to_json
+    req.content_type = 'application/json'
+    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(req)
+    end
+    return res
+  end
 end

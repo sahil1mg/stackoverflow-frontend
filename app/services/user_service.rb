@@ -57,4 +57,19 @@ class UserService
     return res
   end
 
+  def self.authenticate_cookie(user_id, remember_token)
+    uri = URI('http://localhost:3000/authenticate_cookie');
+    req = Net::HTTP::Post.new(uri)
+    req.body = {:id=>user_id, :remember_token=>remember_token}.to_json
+    req.content_type = 'application/json'
+    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(req)
+    end
+    if(res.status=='200')
+      return JSON.parse(res.body)
+    else
+      return nil
+    end
+  end
+
 end

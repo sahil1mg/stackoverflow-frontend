@@ -31,8 +31,13 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <%=link_to 'edit', edit_question_path %>
-    </div>
+      <% if logged_in? && (is_admin? || current_user[:user_id]==@question["user_id"]) %>
+        <%=link_to 'edit', edit_question_path %>
+        <%if @question["deleted_at"]==nil %>
+          <%= link_to question_path(@question["id"]), method: :delete do %><span class="glyphicon glyphicon-trash"></span><% end %>
+        <%end %>
+      <% end %>
+        </div>
     <div class="col-md-6"><span class="tags" style="float:right"><p class="small">Asked by<br><%= link_to @question["user_name"], user_url(@question["user_id"]) %></p></span></div>
   </div>
   <div class="row">
@@ -50,11 +55,13 @@
     <%=render 'comment_form', commentable_id: @question["id"], commentable_type: 'Question', question_id: @question["id"] %>
   </div>
   <hr>
-  <%=pluralize(@question["no_of_answers"],"Answer") %>
+  <%=pluralize(@answers.count,"Answer") %>
   <hr>
 
-
+  <!-- Answer section -->
   <%=render 'answer_printer', answers: @answers, question_id: @question["id"] %>
+
+  <!-- Post Answer section -->
   <%if logged_in? %>
     <div class="row">
       <div class="col-md-12">

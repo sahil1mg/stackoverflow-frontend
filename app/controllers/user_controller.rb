@@ -2,7 +2,7 @@ class UserController < ApplicationController
   before_action :logged_in_user, only: [:update, :destroy]
   before_action :is_admin?, only: [:destroy]
   def index
-    @users = JSON.parse(UserService.showAll.body)
+    @user = JSON.parse(UserService.showAll.body)
   end
 
   def show

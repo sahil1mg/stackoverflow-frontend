@@ -7,6 +7,7 @@ class QuestionController < ApplicationController
   end
 
   def new
+    #get tags to select when creating questions
     @tags = JSON.parse(TagService.showAll.body)
   end
 
@@ -29,6 +30,7 @@ class QuestionController < ApplicationController
     puts "Started Create Question"
     @question = question_params
     @question["user_id"]=current_user["user_id"]
+    @question["remember"]=current_user["remember"]
     @response = QuestionService.create(@question)
     if (@response && @response.code == '201')
       @question = JSON.parse(@response.body)
@@ -59,6 +61,34 @@ class QuestionController < ApplicationController
       flash[:danger] = @response.body
       redirect_to edit_question_path
     end
+  end
+
+  def destroy
+    puts "Started Delete question"+question_params.to_s
+    @question = question_params
+    response = QuestionService.destroy(@question["id"])
+    if (response && response.code == '200')
+      puts "success"
+      flash[:success] = "question deleted successfully!"
+    else
+      puts "failure"
+      flash[:danger] = "Something went wrong"
+    end
+    redirect_to root_url
+  end
+
+  def restore
+    puts "Started restore question"+question_params.to_s
+    @question = question_params
+    response = QuestionService.restore(@question["id"])
+    if (response && response.code == '200')
+      puts "success"
+      flash.now[:success] = "question restored successfully!"
+    else
+      puts "failure"
+      flash.now[:danger] = "Something went wrong"
+    end
+    redirect_to request.referer || root_url
   end
 
   private

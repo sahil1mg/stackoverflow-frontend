@@ -6,10 +6,7 @@ class CommentController < ApplicationController
     @comment[:user_id]=current_user["user_id"]
     @response = CommentService.create(@comment)
     question_id=@comment["question_id"]
-    respond_to do |format|
-      format.html { redirect_to question_path(question_id) }
-      format.js
-    end
+    redirect_to question_path(question_id)
   end
 
   def edit
